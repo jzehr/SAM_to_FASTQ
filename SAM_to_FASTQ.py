@@ -166,7 +166,7 @@ with open("tester.fastq", "w") as out:
             joined_seq = r_start+r_end
             joined_q = r_a.qual[:seq_splitter] + r_b.qual[seq_splitter:]
 
-            out.write("{}\n{}\n+\n{}\n".format(joined_label, joined_seq, joined_q)) 
+            out.write("@{}\n{}\n+\n{}\n".format(joined_label, joined_seq, joined_q)) 
             
         else:
             ## jsut write everything else here
@@ -178,8 +178,8 @@ with open("tester.fastq", "w") as out:
             key_get = np.random.randint(num_refs)
             r_b = data[viruses[key_get]][1][seq_getter]
             
-            out.write("{}\n{}\n+\n{}\n".format(r_a.qname, r_a.seq, r_a.qual)) 
-            out.write("{}\n{}\n+\n{}\n".format(r_b.qname, r_b.seq, r_b.qual)) 
+            out.write("@{}\n{}\n+\n{}\n".format(r_a.qname, r_a.seq, r_a.qual)) 
+            out.write("@{}\n{}\n+\n{}\n".format(r_b.qname, r_b.seq, r_b.qual)) 
 
         
 

@@ -59,7 +59,7 @@ print("Your reference fasta: ",ref_fasta, "\nThe number of references in the fil
 
 
 ## number of reads you want to simulate, should NOT hard code this in the future ##
-reads_to_sim = 50000
+reads_to_sim = 500
 print("Number of reads to Simulate: ", reads_to_sim)
 
 
@@ -142,7 +142,7 @@ for number in range(reads_to_sim*reads_to_sim):
      #   print("~ Processing... found ", counter +1, " ~ AR reads")
       #  continue
 
-    print(counter)
+    #print(counter)
     if counter == desired_AR_reads:
         print("Gathered all our total ARs --> ", desired_AR_reads)
         break
@@ -157,6 +157,7 @@ fastq_file = "v1_50_v2_50_AR_%s_reads_%s.fastq" %(per_ar*100, reads_to_sim)
 with open(fastq_file, "w") as out:
     for i in range(reads_to_sim):
         if i < len(sampled_AR_data):
+            print(f"{i} printing ar read")
             # write AR reads to file
             #count += 1
 
@@ -176,17 +177,16 @@ with open(fastq_file, "w") as out:
             out.write("@{}\n{}\n+\n{}\n".format(joined_label, joined_seq, joined_q))
 
         else:
+            print(f"{i} printing normal")
             ## jsut write everything else here
             viruses = list(data.keys())
             seq_getter = np.random.randint(reads_to_sim)
             key_get = np.random.randint(num_refs)
 
             r_a = data[viruses[key_get]][1][seq_getter]
-            key_get = np.random.randint(num_refs)
-            r_b = data[viruses[key_get]][1][seq_getter]
-
-            out.write("@{}\n{}\n+\n{}\n".format(r_a.qname, r_a.seq, r_a.qual))
             out.write("@{}\n{}\n+\n{}\n".format(r_b.qname, r_b.seq, r_b.qual))
-
+            
+        if i == reads_to_sim:
+            break
 
 
